@@ -1,0 +1,10 @@
+consul:
+  ip: 154.12.41.116
+  port: 8500
+  id: 6666
+  name: IMchatrpc_n1
+redis:
+  masteraddr: 154.12.41.116:6379
+  password: 775345
+  DB: 0
+

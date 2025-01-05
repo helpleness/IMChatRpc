@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package chat;
+
+
+option go_package = "service/rpc/proto/proto;chat";
+
+
+// 枚举，描述系统中不同类型的消息
+enum MessageType {
+  TEXT = 0;            // 文本消息
+  IMAGE = 1;           // 图片消息
+  FILE = 2;            // 文件消息
+  FRIEND_REQUEST = 3;  // 好友请求
+  GROUP_INVITE = 4;    // 群组邀请
+  ONLINE_STATUS = 5;   // 在线状态更新
+}
+
+// 用户基本信息结构
+message User {
+  string user_id = 1;      // 用户唯一标识
+  string username = 2;     // 用户名
+  string avatar_url = 3;   // 头像URL
+}
+
+// 聊天消息结构
+message MyMessage {
+  string message_id = 1;      // 消息唯一标识
+  string user_from = 2;       // 发送者用户ID
+  string send_target = 3;     // 接收者用户ID或群组ID
+  string content = 4;         // 消息内容
+  MessageType type = 5;       // 消息类型
+  int64 send_time = 6;        // 发送时间（Unix时间戳）
+}
+
+// 发送消息请求
+message SendMessageRequest {
+  MyMessage message = 1;
+}
+
+// 发送消息响应
+message SendMessageResponse {
+  bool success = 1;            // 是否发送成功
+  string error_message = 2;    // 错误信息（如果有）
+}
+// 消息流请求（用于实时接收消息的流式RPC）
+message MessageStreamRequest {
+  string user_id = 1; // 当前用户ID
+}
+
+// 服务定义
+service ChatService {
+  // 发送消息
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+  rpc ReceiveMessageStream(MessageStreamRequest) returns (stream MyMessage);
+}
