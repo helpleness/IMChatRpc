@@ -109,7 +109,7 @@ func (s *Chatserver) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 
 // 存储消息到Redis
 func (s *Chatserver) storeMessageInRedis(ctx context.Context, message *pb.MyMessage) error {
-	key := fmt.Sprintf("messages:%s:%s", message.GetUserFrom(), message.GetSendTarget())
+	key := fmt.Sprintf("messages:%s", message.GetSendTarget())
 
 	// 将消息序列化为字符串或二进制
 	data, err := proto.Marshal(message)
@@ -118,8 +118,7 @@ func (s *Chatserver) storeMessageInRedis(ctx context.Context, message *pb.MyMess
 	}
 
 	// 使用 HSET 将消息存储到 Redis 哈希
-	field := message.GetMessageId()
-	return s.redisClient.HSet(context.Background(), key, field, data).Err()
+	return s.redisClient.LPush(context.Background(), key, data, 0).Err()
 }
 
 // 将无法处理的消息推送到 Redis 队列中
