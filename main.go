@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/helpleness/IMChatRpc/config"
 	"github.com/helpleness/IMChatRpc/controller"
+	"github.com/helpleness/IMChatRpc/database"
 	pb "github.com/helpleness/IMChatRpc/service/rpc/proto/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -14,6 +15,7 @@ import (
 func main() {
 
 	config.ConfigInit()
+	database.InitClusterClient()
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		panic(err)

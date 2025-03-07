@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/helpleness/IMChatRpc/database"
@@ -9,7 +10,6 @@ import (
 	"github.com/helpleness/IMChatRpc/utilsware/pool/goroutineware"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
-	"google.golang.org/protobuf/proto"
 	"log"
 	"sync"
 	"time"
@@ -40,13 +40,15 @@ func (s *Chatserver) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 
 	targetUserID := message.GetSendTarget()
 
-	targetIP, err := s.redisClient.Get(ctx, targetUserID).Result()
-	if err == redis.Nil {
-		log.Printf("Key does not exist")
-		return nil, err
-	} else if err != nil {
+	targetIP, err := s.redisClient.Get(ctx, "ip"+targetUserID).Result()
+	//if err == redis.Nil {
+	//	log.Printf("Key does not exist")
+	//	return nil, err
+	//} else
+	if err != nil {
+		targetIP = ""
 		log.Printf("Error getting value: %v", err)
-		return nil, err
+		//return nil, err
 	}
 	// 获取目标用户的流
 	targetStream, exists := s.clients.Load(targetUserID) // 使用 Load 获取值
@@ -55,6 +57,9 @@ func (s *Chatserver) SendMessage(ctx context.Context, req *pb.SendMessageRequest
 	if err != nil && !errors.Is(err, redis.Nil) {
 		log.Printf("Error checking user %s status: %v", targetUserID, err)
 		return nil, err
+	}
+	if errors.Is(err, redis.Nil) {
+		status = "offline"
 	}
 
 	// 如果目标用户在线，直接发送消息
@@ -112,13 +117,13 @@ func (s *Chatserver) storeMessageInRedis(ctx context.Context, message *pb.MyMess
 	key := fmt.Sprintf("messages:%s", message.GetSendTarget())
 
 	// 将消息序列化为字符串或二进制
-	data, err := proto.Marshal(message)
+	data, err := json.Marshal(message)
 	if err != nil {
 		return err
 	}
 
 	// 使用 HSET 将消息存储到 Redis 哈希
-	return s.redisClient.LPush(context.Background(), key, data, 0).Err()
+	return s.redisClient.LPush(context.Background(), key, data).Err()
 }
 
 // 将无法处理的消息推送到 Redis 队列中
@@ -127,7 +132,7 @@ func (s *Chatserver) storeMessageInQueue(ctx context.Context, message *pb.MyMess
 	queueName := fmt.Sprintf("message_queue" + targetIP) // 队列名，可以按需设置
 
 	// 将消息序列化为二进制数据
-	data, err := proto.Marshal(message)
+	data, err := json.Marshal(message)
 	if err != nil {
 		log.Printf("Error serializing message: %v", err)
 		return err
@@ -147,7 +152,7 @@ func (s *Chatserver) storeMessageInQueue(ctx context.Context, message *pb.MyMess
 // 定时任务检查消息队列并重新发送消息
 func (s *Chatserver) processMessageQueue(ctx context.Context) {
 	IP := viper.GetString("service.ip")
-	queueName := fmt.Sprintf("message_queue" + IP) // 队列名，可以按需设置
+	queueName := fmt.Sprintf("message_queue%s", IP) // 队列名，可以按需设置
 	// 从队列中阻塞地获取消息
 	data, err := s.redisClient.BRPop(ctx, 0, queueName).Result()
 	if err != nil {
@@ -157,7 +162,7 @@ func (s *Chatserver) processMessageQueue(ctx context.Context) {
 
 	// 反序列化消息
 	var message pb.MyMessage
-	err = proto.Unmarshal([]byte(data[2]), &message)
+	err = json.Unmarshal([]byte(data[1]), &message)
 	if err != nil {
 		log.Printf("Error deserializing message: %v", err)
 		err = s.redisClient.LPush(ctx, queueName, data).Err()
@@ -202,7 +207,7 @@ func (s *Chatserver) processMessageQueue(ctx context.Context) {
 func (s *Chatserver) StartTimer(ctx context.Context) {
 	// 从配置中获取IP
 	IP := viper.GetString("service.ip")
-	queueName := fmt.Sprintf("message_queue_%s", IP)
+	queueName := fmt.Sprintf("message_queue%s", IP)
 
 	defer s.pool.Release()
 	// 循环检查队列并处理消息
@@ -233,7 +238,7 @@ func (s *Chatserver) ReceiveMessageStream(req *pb.MessageStreamRequest, stream p
 	// 关联用户ID和流，并将其标记为在线
 	s.clients.Store(userID, stream) // 使用 Store 存储流到 sync.Map
 
-	err := s.redisClient.Set(context.Background(), userID, IP, 0).Err()
+	err := s.redisClient.Set(context.Background(), "ip"+userID, IP, 0).Err()
 	if err != nil {
 		log.Printf("Error setting user %s status and stream to online: %v", userID, err)
 		return err
