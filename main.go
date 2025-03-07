@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"github.com/helpleness/IMChatRpc/auth"
 	"github.com/helpleness/IMChatRpc/config"
 	"github.com/helpleness/IMChatRpc/controller"
 	"github.com/helpleness/IMChatRpc/database"
+	"github.com/helpleness/IMChatRpc/middleware"
 	pb "github.com/helpleness/IMChatRpc/service/rpc/proto/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -20,7 +22,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	grpcServer := grpc.NewServer()
+	// 创建token验证器
+	tokenValidator := auth.NewSimpleTokenValidator()
+	grpcServer := grpc.NewServer(
+		grpc.UnaryInterceptor(middleware.AuthInterceptor(tokenValidator)),
+		grpc.StreamInterceptor(middleware.StreamAuthInterceptor(tokenValidator)))
 	chatServer := controller.NewChatServer()
 	pb.RegisterChatServiceServer(grpcServer, chatServer)
 
