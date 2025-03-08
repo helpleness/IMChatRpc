@@ -18,15 +18,18 @@ func main() {
 
 	config.ConfigInit()
 	database.InitClusterClient()
+	database.InitMysql()
 	listener, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		panic(err)
 	}
 	// 创建token验证器
-	tokenValidator := auth.NewSimpleTokenValidator()
+	// 创建认证服务
+	authService := auth.NewGRPCAuth()
 	grpcServer := grpc.NewServer(
-		grpc.UnaryInterceptor(middleware.AuthInterceptor(tokenValidator)),
-		grpc.StreamInterceptor(middleware.StreamAuthInterceptor(tokenValidator)))
+		grpc.UnaryInterceptor(middleware.UnaryAuthInterceptor(authService)),
+		grpc.StreamInterceptor(middleware.StreamAuthInterceptor(authService)),
+	)
 	chatServer := controller.NewChatServer()
 	pb.RegisterChatServiceServer(grpcServer, chatServer)
 

@@ -14,7 +14,7 @@ func RegisterWithConsul() error {
 	ID := viper.GetString("consul.id")
 	Name := viper.GetString("consul.name")
 	consulAddress := fmt.Sprintf("%s:%s", ip, port)
-	rpcIp := "192.168.15.113"
+	rpcIp := viper.GetString("service.ip")
 
 	serviceAddress := fmt.Sprintf("%s:%s", rpcIp, "50051")
 	config := api.DefaultConfig()

@@ -5,12 +5,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/helpleness/IMChatRpc/auth"
 	"github.com/helpleness/IMChatRpc/database"
 	pb "github.com/helpleness/IMChatRpc/service/rpc/proto/proto"
 	"github.com/helpleness/IMChatRpc/utilsware/pool/goroutineware"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 	"log"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -232,8 +236,19 @@ func (s *Chatserver) StartTimer(ctx context.Context) {
 	}
 }
 func (s *Chatserver) ReceiveMessageStream(req *pb.MessageStreamRequest, stream pb.ChatService_ReceiveMessageStreamServer) error {
-	IP := viper.GetString("service.ip")
+	// 从上下文中获取认证的用户ID
+	reqUserID, ok := auth.GetUserIDFromContext(stream.Context())
+	if !ok {
+		return status.Errorf(codes.Unauthenticated, "未认证的请求")
+	}
+
 	userID := req.GetUserId()
+	// 将字符串用户ID转换为uint进行比较
+	if strconv.Itoa(int(reqUserID)) != userID {
+		return status.Errorf(codes.PermissionDenied, "无权访问其他用户的消息流")
+	}
+
+	IP := viper.GetString("service.ip")
 
 	// 关联用户ID和流，并将其标记为在线
 	s.clients.Store(userID, stream) // 使用 Store 存储流到 sync.Map
