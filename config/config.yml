@@ -1,3 +1,9 @@
+mysql:
+  host: 154.12.41.116
+  port: 3306
+  username: root
+  password: 775345
+  database: test
 service:
   ip: 154.12.41.116
 consul:
