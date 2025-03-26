@@ -1,18 +1,17 @@
 mysql:
-  host: 154.12.41.116
+  host: 192.168.129.37
   port: 3306
   username: root
-  password: 775345
+  password: xxxxxx
   database: test
 service:
-  ip: 154.12.41.116
+  ip: 192.168.129.37
 consul:
-  ip: 154.12.41.116
+  ip: 192.168.129.37
   port: 8500
   id: 6666
   name: IMchatrpc_n1
 redis:
-  masteraddr: 154.12.41.116:63791
+  masteraddr: 192.168.129.37:6379
   password: 775345
   DB: 0
-
