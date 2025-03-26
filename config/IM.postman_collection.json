@@ -1,0 +1,643 @@
+{
+	"info": {
+		"_postman_id": "bc9bdeb1-4cc9-4635-a425-d56677c69487",
+		"name": "IM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38166223"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8088/queryAllActiveFriendAdds?user_id=1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NTkxMzYsIm5iZiI6MTc0MTI1NDMzNiwiaWF0IjoxNzQxMjU0MzM2fQ.sspVhD6x0eqlsTathBN9UiMrT8o6BmiJmjt7fOYiH4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8088/queryAllActiveFriendAdds?user_id=3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"queryAllActiveFriendAdds"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Gwq",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Gwq@666666",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/friendAdd",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NTkxMzYsIm5iZiI6MTc0MTI1NDMzNiwiaWF0IjoxNzQxMjU0MzM2fQ.sspVhD6x0eqlsTathBN9UiMrT8o6BmiJmjt7fOYiH4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 4,\r\n    \"friend_id\": 3,\r\n    \"message\": \"加好友测试\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/friendAdd",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"friendAdd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "G3",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Gwq@666666",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/handleFriendAdd",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 4,\r\n    \"friend_id\": 3,\r\n    \"message\": \"加好友测试\",\r\n    \"status\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/handleFriendAdd",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"handleFriendAdd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "Gwq",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Gwq@666666",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/groupCreated",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NTkxMzYsIm5iZiI6MTc0MTI1NDMzNiwiaWF0IjoxNzQxMjU0MzM2fQ.sspVhD6x0eqlsTathBN9UiMrT8o6BmiJmjt7fOYiH4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"creator_id\": 3,\r\n    \"group_name\": \"aaa test\",\r\n    \"initial_members\":[2]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/groupCreated",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"groupCreated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/groupAddRedis",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjMwNjYsIm5iZiI6MTc0MTI1ODI2NiwiaWF0IjoxNzQxMjU4MjY2fQ.0x4x8HesJQs6grhsoL9bFUPeRavTW01wmQovsVfLmp0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"group_id\":1,\r\n    \"user_id\":1,\r\n    \"userFrom\":\"3\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/groupAddRedis",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"groupAddRedis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8088/groupApplicationRedis",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjMwNjYsIm5iZiI6MTc0MTI1ODI2NiwiaWF0IjoxNzQxMjU4MjY2fQ.0x4x8HesJQs6grhsoL9bFUPeRavTW01wmQovsVfLmp0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":4,\r\n    \"group_id\":1,\r\n    \"message\":\"申请加入贵群\"\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/groupApplicationRedis",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"groupApplicationRedis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/queryAllActiveGroupApplications?user_id=3",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/queryAllActiveGroupApplications?user_id=3",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"queryAllActiveGroupApplications"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/deleteFriendAddByID?id=24",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8088/deleteFriendAddByID?id=24",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"deleteFriendAddByID"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "24"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/deleteGroupApplicationByID?id=4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8088/deleteGroupApplicationByID?id=4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"deleteGroupApplicationByID"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8088/handleGroupApplication",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NTkxMzYsIm5iZiI6MTc0MTI1NDMzNiwiaWF0IjoxNzQxMjU0MzM2fQ.sspVhD6x0eqlsTathBN9UiMrT8o6BmiJmjt7fOYiH4Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":4,\r\n    \"group_id\":1,\r\n    \"message\":\"申请加入贵群\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/handleGroupApplication",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"handleGroupApplication"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/groups",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8088/groups",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/friends",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8088/friends",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"friends"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8088/download?name=my.jpg",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjMsImlzcyI6Ikd3cSIsInN1YiI6InVzZXIgdG9rZW4iLCJleHAiOjE3NDE4NjgwNjEsIm5iZiI6MTc0MTI2MzI2MSwiaWF0IjoxNzQxMjYzMjYxfQ.huDfEmFHWP-ASr4n_UxkcVhU1BzgPYsoutC2HZ6zbDE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8088/download?name=Gwq.jpg",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8088",
+					"path": [
+						"download"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Gwq.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
